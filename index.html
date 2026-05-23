@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%221em%22 font-size=%2280%22>🤖</text></svg>" />
+    <title>Bot Detection</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background: #0a0a0f;
+        color: #e2e8f0;
+        font-family: 'Courier New', monospace;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 48px 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        font-size: 13px;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 16px;
+      }
+
+      .verdict-box {
+        border: 1px solid #1e293b;
+        padding: 32px 48px;
+        margin-bottom: 8px;
+        position: relative;
+        background: #0f1117;
+      }
+
+      .verdict-box::before {
+        content: '';
+        position: absolute;
+        top: -1px; left: -1px; right: -1px; bottom: -1px;
+        border: 1px solid transparent;
+        transition: border-color 0.3s;
+      }
+
+      .verdict-box.bot::before  { border-color: #ef4444; }
+      .verdict-box.safe::before { border-color: #22c55e; }
+
+      .verdict-label {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #475569;
+        margin-bottom: 10px;
+      }
+
+      .verdict-result {
+        font-size: 28px;
+        font-weight: bold;
+        letter-spacing: 0.05em;
+      }
+
+      .verdict-result.bot  { color: #ef4444; }
+      .verdict-result.safe { color: #22c55e; }
+
+      .score-line {
+        font-size: 11px;
+        color: #475569;
+        margin-top: 8px;
+        letter-spacing: 0.1em;
+      }
+
+      .detections {
+        width: 100%;
+        max-width: 520px;
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .detector-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        background: #0f1117;
+        border-left: 2px solid #1e293b;
+        font-size: 12px;
+        transition: border-color 0.2s;
+      }
+
+      .detector-row.triggered { border-left-color: #ef4444; }
+      .detector-row.clear     { border-left-color: #1e293b; }
+
+      .detector-name {
+        color: #94a3b8;
+        letter-spacing: 0.05em;
+      }
+
+      .detector-status {
+        font-weight: bold;
+        font-size: 11px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .detector-status.triggered { color: #ef4444; }
+      .detector-status.clear     { color: #334155; }
+
+      .footer {
+        margin-top: 40px;
+        font-size: 10px;
+        color: #1e293b;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="header">
+      <h1>Client-Side Bot Detection</h1>
+      <div class="verdict-box" id="verdictBox">
+        <div class="verdict-label">Visitor Classification</div>
+        <div class="verdict-result" id="verdictResult">Analysing...</div>
+        <div class="score-line" id="scoreLine"></div>
+      </div>
+    </div>
+
+    <div class="detections" id="detections"></div>
+
+    <div class="footer">Signal analysis · 10 detectors active</div>
+
+    <script src="script.js" defer> </script>
+  </body>
+</html>

@@ -1,2 +1,2 @@
 # bot-detection
-Client-side bot detection script analysing 10 browser signals — WebDriver flags, headless UA strings, eval() length inconsistencies, DOM automation artifacts, and behavioural signals. Validated against Puppeteer headless Chrome.
+A JavaScript fingerprinting system that detects automated browsers by cross-checking browser signals that bots commonly leak or spoof incorrectly.
